@@ -1,13 +1,16 @@
 import React, {useCallback, useEffect, useState} from 'react';
+import {useDispatch} from 'react-redux';
 import {useNavigate} from 'react-router-dom';
 import {Entry, FeedType} from '../domain/FeedTypes';
 import {fetchTopPodcasts} from '../services/data.services';
+import {hideLoader, showLoader} from '../store/loaderSlice';
 
 import './HomeScreen';
 
 const HomeScreen = () => {
 
   const navigate = useNavigate();
+	const dispatch = useDispatch();
 
 	const [podcastList, setPodcastList] = useState<Entry[]>([]);
 
@@ -16,10 +19,15 @@ const HomeScreen = () => {
 	}, [navigate])
 
 	useEffect(() => {
-			fetchTopPodcasts().then((response) => {
-				setPodcastList(response);
-		});
-	});
+			dispatch(showLoader());
+			fetchTopPodcasts().then(
+				response => {
+					setPodcastList(response);
+				},
+				error => {
+					console.log('Error fetching Top popular podcast data', error);
+				}).finally(() => dispatch(hideLoader()))
+	}, []);
 
 	return (
 		<div className="Home">

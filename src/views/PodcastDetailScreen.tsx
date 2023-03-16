@@ -3,24 +3,35 @@ import { Outlet, useMatches, useParams } from "react-router-dom";
 import Episodes from '../components/Episodes';
 import {fetchPodcastDetail} from '../services/data.services';
 import {PodcastDetail} from '../domain/PodcastTypes';
+import {useDispatch} from 'react-redux';
+import {hideLoader, showLoader} from '../store/loaderSlice';
 
 
 const PodcastDetailScreen = () => {
   const matches = useMatches();
+	const dispatch = useDispatch();
   let { podcastId } = useParams();
 
 	const [isEpisodeDetailRoute, setIsEpisodeDetailRoute] = useState(false);
 
-const [podcastData , setPodcastData] = useState<PodcastDetail | null>(null);
+	const [podcastData , setPodcastData] = useState<PodcastDetail | null>(null);
 
 	useEffect(() => {
 		setIsEpisodeDetailRoute(matches.length > 2);
 
-		podcastId && fetchPodcastDetail(podcastId).then(response => {
-			setPodcastData(response);
-		}, error => {
-		console.log('Error fetching podcast detail data', error);
-		});
+		if(podcastId) {
+			dispatch(showLoader());
+
+			fetchPodcastDetail(podcastId).then(
+				response => {
+					setPodcastData(response);
+				}, 
+				error => {
+					console.log('Error fetching podcast detail data', error);
+				}
+			).finally(() => dispatch(hideLoader())
+);
+		}
 
 	},[matches, podcastId]);
 
