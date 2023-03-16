@@ -1,19 +1,31 @@
 import {EpisodeType} from '../domain/EpisodeTypes';
 import {Entry} from '../domain/FeedTypes';
 import {PodcastDetail} from '../domain/PodcastTypes';
+import {getPodcastFromCache, getTopPodcastListFromCache, saveCacheForPodcast, saveCacheForTopPodcastList} from './localstorage.services';
 
 const CORS_PROXY = "https://cors-anywhere.herokuapp.com"
 
 const TOP_PODCAST_URL = 'https://itunes.apple.com/us/rss/toppodcasts/limit=100/genre=1310/json';
 
 export const fetchTopPodcasts = async (): Promise<Entry[]> => {
+
+	// First check cache
+	const listFromCache = getTopPodcastListFromCache();
+	if (listFromCache && listFromCache.length > 0) {
+		console.log('TopPodcastList retrieved from Cache!');
+		return listFromCache;
+	}
+
 	const response = await fetch(TOP_PODCAST_URL);
 	const responseJson = await response.json();
-	return responseJson.feed.entry.map((item: Entry) => {
+	const result = responseJson.feed.entry.map((item: Entry) => {
 		return {
 			...item, viewData: getEntryViewData(item)
 		}
 	});
+
+	saveCacheForTopPodcastList(result);
+	return result;
 }
 
 const getEntryViewData = (entry: Entry) => {
@@ -41,6 +53,14 @@ const getImageFromEntry = (podcast: Entry): string | undefined => {
 const PODCAST_DETAIL_URL = `${CORS_PROXY}/https://itunes.apple.com/lookup?id=`;
 
 export const fetchPodcastDetail = async (podcastId: string): Promise<PodcastDetail> => {
+
+	// First check cache
+	const podcastFromCache = getPodcastFromCache(podcastId);
+	if (podcastFromCache) {
+		console.log(`Podcast ${podcastId} retrieved from Cache!`);
+		return podcastFromCache;
+	}
+
 	const url = `${PODCAST_DETAIL_URL}${podcastId}`;
 	const response = await fetch(url);
 	const responseTxt = await response.text();
@@ -49,11 +69,14 @@ export const fetchPodcastDetail = async (podcastId: string): Promise<PodcastDeta
 	// Fetch rss episodes data
 	const episodesRssData = await fetchEpisodesRssFeed(podcastDetail.feedUrl);
 
-	return {
+	const result = {
 		...podcastDetail,
 		description: extractDescriptionFromRss(episodesRssData),
 		episodes: extractEpisodesFromRss(episodesRssData)
 	};
+
+	saveCacheForPodcast(result);
+	return result;
 }
 
 
