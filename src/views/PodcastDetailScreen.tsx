@@ -29,11 +29,10 @@ const PodcastDetailScreen = () => {
 				error => {
 					console.log('Error fetching podcast detail data', error);
 				}
-			).finally(() => dispatch(hideLoader())
-);
+			).finally(() => dispatch(hideLoader()));
 		}
 
-	},[matches, podcastId]);
+	},[dispatch, matches, podcastId]);
 
 	return (
 		<div className="PodcastDetail">

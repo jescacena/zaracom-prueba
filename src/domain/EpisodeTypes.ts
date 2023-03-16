@@ -4,4 +4,5 @@ export interface EpisodeType {
 	pubDate?: string;
 	duration?: string;
 	audioUrl?: string;
+	id: string;
 }

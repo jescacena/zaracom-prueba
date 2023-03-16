@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {useNavigate} from 'react-router-dom';
-import {Entry, FeedType} from '../domain/FeedTypes';
+import {Entry} from '../domain/FeedTypes';
 import {fetchTopPodcasts} from '../services/data.services';
 import {hideLoader, showLoader} from '../store/loaderSlice';
 

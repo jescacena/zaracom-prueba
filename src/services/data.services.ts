@@ -94,6 +94,7 @@ const extractEpisodesFromRss = (rssData: Document): EpisodeType[] => {
 
 	items.forEach(item => {
 		result.push({
+			id: item.getElementsByTagName('itunes:episode')[0]?.innerHTML,
 			title: item.querySelector('title') ? item.querySelector('title')?.innerHTML : undefined,
 			description: item.querySelector('description') ? item.querySelector('description')?.textContent : undefined,
 			pubDate: item.querySelector('pubDate') ? formatDateFromRss(item.querySelector('pubDate')?.innerHTML) : undefined,
