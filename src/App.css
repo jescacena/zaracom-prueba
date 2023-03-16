@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  margin: 1rem 2rem;
 }
 
 .App-header {
@@ -16,4 +17,3 @@
 .App-content {
   min-height: 90vh;
 }
-

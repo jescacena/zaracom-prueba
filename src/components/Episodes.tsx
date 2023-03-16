@@ -27,7 +27,7 @@ const Episodes = ({data}: {data:EpisodeType[] | undefined}) => {
 				{data.map((item,index) => {
 					return (
 						<li key={index} onClick={() => handleClick(item)}>
-							{item.title} - {item.pubDate} - {item.duration}
+							{item.id} - {item.title} - {item.pubDate} - {item.duration}
 						</li>
 					);
 
