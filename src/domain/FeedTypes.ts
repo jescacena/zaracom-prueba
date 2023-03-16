@@ -35,6 +35,12 @@ export interface Entry {
 	category: Category;
 	"im:releaseDate": IMReleaseDate;
 	rights?: Icon;
+	viewData: {
+		id: string;
+		image: string;
+		title: string;
+		author: string;
+	}
 }
 
 export interface Category {
