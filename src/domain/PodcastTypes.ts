@@ -1,9 +1,11 @@
-export interface PodcastTypes {
+import {EpisodeType} from './EpisodeTypes';
+
+export interface PodcastDetailResponse {
 	resultCount: number;
-	results: Result[];
+	results: PodcastDetail[];
 }
 
-export interface Result {
+export interface PodcastDetail {
 	wrapperType: string;
 	kind: string;
 	collectionId: number;
@@ -34,4 +36,6 @@ export interface Result {
 	artworkUrl600: string;
 	genreIds: string[];
 	genres: string[];
+	description: string | null | undefined;
+	episodes: EpisodeType[]
 }

@@ -1,5 +1,11 @@
 # zaracom-prueba
 
+# Before start development mode
+**Avoid CORS**
+<https://cors-anywhere.herokuapp.com/corsdemo>
+request temporary access to the demo server
+
+
 # Comandos
 npx create-react-app my-app --template typescript
 

@@ -31,7 +31,7 @@ const HomeScreen = () => {
 			<div className="PodcastList">
 				{podcastList.map(podcast => {
 				return (
-					<div className="PodcastSmallCard" onClick={() => {handleClick(podcast)}}>
+					<div key={podcast.viewData.id} className="PodcastSmallCard" onClick={() => {handleClick(podcast)}}>
 						<img src={podcast.viewData.image} alt="" />
 						<h5>{podcast.viewData.title}</h5>
 						<h5>Author: {podcast.viewData.author}</h5>
