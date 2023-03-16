@@ -7,12 +7,29 @@ import {hideLoader, showLoader} from '../store/loaderSlice';
 
 import './HomeScreen';
 
+let initialPodcastList: Entry[] = [];
+
 const HomeScreen = () => {
 
   const navigate = useNavigate();
 	const dispatch = useDispatch();
 
 	const [podcastList, setPodcastList] = useState<Entry[]>([]);
+
+	const [filter, setFilter] = useState<string>();
+
+	const handleFilterChange = useCallback((event: any) => {
+			const newFilter = event.target.value;
+			setFilter(newFilter);
+			if (newFilter) {
+				const filteredResult = initialPodcastList.filter(item => {
+					return item.viewData.title.indexOf(newFilter) >= 0 || item.viewData.author.indexOf(newFilter) >= 0
+				});
+				setPodcastList([...filteredResult])
+			} else {
+				setPodcastList([...initialPodcastList])
+			}
+	}, []);
 
 	const handleClick = useCallback((podcast:Entry) => {
 		navigate(`/podcast/${podcast.viewData.id}`);
@@ -23,6 +40,7 @@ const HomeScreen = () => {
 			fetchTopPodcasts().then(
 				response => {
 					setPodcastList(response);
+					initialPodcastList = [...response];
 				},
 				error => {
 					console.log('Error fetching Top popular podcast data', error);
@@ -34,10 +52,10 @@ const HomeScreen = () => {
 			<h1>Most popular podcast list</h1>
 			<div className="Filter">
 						<h3>Cuenta {podcastList.length}</h3>
-						<input type="text" placeholder="Filter podcast"/>
+						<input type="text" value={filter || ''} onChange={handleFilterChange}  placeholder="Filter podcast"/>
 			</div>	
 			<div className="PodcastList">
-				{podcastList.map(podcast => {
+				{podcastList && podcastList.map(podcast => {
 				return (
 					<div key={podcast.viewData.id} className="PodcastSmallCard" onClick={() => {handleClick(podcast)}}>
 						<img src={podcast.viewData.image} alt="" />
