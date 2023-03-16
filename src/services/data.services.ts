@@ -73,7 +73,7 @@ const extractEpisodesFromRss = (rssData: Document): EpisodeType[] => {
 		result.push({
 			title: item.querySelector('title') ? item.querySelector('title')?.innerHTML : undefined,
 			description: item.querySelector('description') ? item.querySelector('description')?.textContent : undefined,
-			pubDate: item.querySelector('pubDate')?.innerHTML,
+			pubDate: item.querySelector('pubDate') ? formatDateFromRss(item.querySelector('pubDate')?.innerHTML) : undefined,
 			duration: item.getElementsByTagName('itunes:duration')[0]?.innerHTML,
 			audioUrl: item.querySelector('enclosure')?.attributes.getNamedItem('url')?.value
 		});
@@ -81,6 +81,38 @@ const extractEpisodesFromRss = (rssData: Document): EpisodeType[] => {
 
 	return result;
 
+}
+
+const formatDateFromRss = (dateFromRss: string | undefined) => {
+
+	const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+	let tokens: string[] | undefined;
+	let year;
+	let day;
+	let monthNumber;
+
+	try {
+		tokens = dateFromRss?.split(' ');
+		if (!tokens || tokens.length < 3) {
+			throw new Error("Error on parsing date");
+		}
+		year = tokens[3];
+		day = parseInt(tokens[1]);
+		monthNumber = months.indexOf(tokens[2]) >= 0 ? months.indexOf(tokens[2]) + 1 : null;
+
+	} catch (error) {
+		console.log('Error formatting date from rss: ', dateFromRss, error);
+		return "0/0/0";
+	}
+
+	return `${day}/${monthNumber}/${year}`;
+
+}
+
+export const getDatesDifferenceInDays = (date1: Date, date2: Date) => {
+	let difference = date1.getTime() - date2.getTime();
+	return Math.ceil(difference / (1000 * 3600 * 24));
 }
 
 export const fetchEpisodesRssFeed = async (feedUrl: string): Promise<Document> => {
