@@ -1,0 +1,21 @@
+.EpisodeDetail {
+  text-align: left;
+  padding: 1rem;
+  -webkit-box-shadow: 0px 4px 5px 2px var(--color-lightgrey);
+  -moz-box-shadow: 0px 4px 5px 2px var(--color-lightgrey);
+  box-shadow: 0px 4px 5px 2px var(--color-lightgrey);
+}
+
+.EpisodeDetailTitle {
+  margin: 0 0 0 0;
+  padding: 0;
+}
+
+.EpisodeDetailDescription {
+  font-style: italic;
+  font-size: 0.9rem;
+}
+
+.EpisodeDetailPlayer {
+  width: 100%;
+}

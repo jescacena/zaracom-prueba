@@ -116,12 +116,12 @@ const extractEpisodesFromRss = (rssData: Document): EpisodeType[] => {
 }
 
 const formatDuration = (duration: string) => {
-	if (!duration || duration.length < 4 || duration.indexOf(':') >= 0) {
+	if (!duration || duration.length < 3 || duration.indexOf(':') >= 0) {
 		return duration;
 	}
 	const tokens = duration.split('');
-	const minutes = `${tokens[(tokens.length - 4)]}${tokens[(tokens.length - 3)]}`;
-	const seconds = `${tokens[(tokens.length - 2)]}${tokens[(tokens.length - 1)]}`;
+	const minutes = tokens[tokens.length - 4] ? `${tokens[tokens.length - 4]}${tokens[tokens.length - 3]}` : `0${tokens[tokens.length - 3]}`;
+	const seconds = `${tokens[tokens.length - 2]}${tokens[tokens.length - 1]}`;
 	return `${minutes}:${seconds}`;
 }
 
