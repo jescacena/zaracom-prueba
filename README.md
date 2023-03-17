@@ -1,26 +1,24 @@
 # zaracom-prueba
 
-# Before start development mode
-**Avoid CORS**
-<https://cors-anywhere.herokuapp.com/corsdemo>
-request temporary access to the demo server
+## IMPORTANTE para evitar CORS
+Abre una pestaña en el mismo navegador donde vayas a abrir la aplicación, visita
+<https://cors-anywhere.herokuapp.com/corsdemo> y solicita acceso temporal clicando en el botón: "request temporary access to the demo server"
+
+## Ejecución en modo development
+```
+npm run start
+```
+
+## Ejecución en modo production
+
+```
+npm run start:pro
+```
 
 
-# Comandos
-npx create-react-app my-app --template typescript
+## Ejecución tests
 
-npm start
+```
+npm run test
+```
 
-npm test
-
-npm build
-
-npm start:pro
-
-# Justificaciones técnicas
-
-- React 18 - framework js para desarrollo de SPA. Flexible y escalable
-- create-react-app: scaffolding inicial, tooling and development/production modes
-- React-router para routing de navegación
-- Typescript para darle sólidez al código en tipado en posibles futuros refactor. Editor assist
-- Jest como test-runner (Create React App included)
