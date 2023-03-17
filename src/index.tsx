@@ -5,30 +5,11 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import './index.css';
-import App from './App';
-import PodcastDetailScreen from './views/PodcastDetailScreen';
-import EpisodeDetailScreen from './views/EpisodeDetailScreen';
 import {Provider} from 'react-redux';
 import store from './store/store';
+import routes from './routes';
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <App />,
-    children: [
-      {
-        path: "podcast/:podcastId",
-        element: <PodcastDetailScreen />,
-				children: [
-					{
-						path: "episode/:episodeId",
-        		element: <EpisodeDetailScreen />,
-					}
-				]
-      },
-    ],
-  },
-]);
+const router = createBrowserRouter(routes);
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
