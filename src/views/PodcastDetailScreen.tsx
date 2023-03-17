@@ -1,20 +1,26 @@
-import React, {useEffect, useState} from 'react';
-import { Outlet, useMatches, useParams } from "react-router-dom";
+import React, {useCallback, useEffect, useState} from 'react';
+import { Outlet, useMatches, useNavigate, useParams } from "react-router-dom";
 import Episodes from '../components/Episodes';
 import {fetchPodcastDetail} from '../services/data.services';
 import {PodcastDetail} from '../domain/PodcastTypes';
 import {useDispatch} from 'react-redux';
 import {hideLoader, showLoader} from '../store/loaderSlice';
+import './PodcastDetailScreen.css';
 
 
 const PodcastDetailScreen = () => {
   const matches = useMatches();
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
   let { podcastId } = useParams();
 
 	const [isEpisodeDetailRoute, setIsEpisodeDetailRoute] = useState(false);
 
 	const [podcastData , setPodcastData] = useState<PodcastDetail | null>(null);
+
+	const handleClick = useCallback(()=> {
+		navigate(`/podcast/${podcastId}`);
+	},[]);
 
 	useEffect(() => {
 		setIsEpisodeDetailRoute(matches.length > 2);
@@ -36,16 +42,23 @@ const PodcastDetailScreen = () => {
 
 	return (
 		<div className="PodcastDetail">
-			<h1>Podcast Detail</h1>
 				<div className="PodCastDetail-left">
-					<img src={podcastData?.artworkUrl600} alt="" width="200"/>
-					<p>Name: {podcastData?.collectionName}</p>
-					<p>by {podcastData?.artistName}</p>
-					{podcastData?.description && <>
-						<h6>Description:</h6>
-						<div dangerouslySetInnerHTML={{ __html: podcastData?.description }}></div>
-					</>
-					}
+					<div className="PodcastLargeCard" onClick={handleClick}>
+							<img className="PodcastLargeCardImage" src={podcastData?.artworkUrl600} alt="" width="200"/>
+
+							<div className="PodcastLargeCardCenter">
+								<p className="PodcastLargeCardName">{podcastData?.collectionName}</p>
+								<p className="PodcastLargeCardAuthor">by {podcastData?.artistName}</p>
+							</div>
+
+							{podcastData?.description 
+								&& 
+								<div className="PodcastLargeCardDescription">
+									<h5 className="PodcastLargeCardDescriptionHeader">Description:</h5>
+									<div className="PodcastLargeCardAuthor" dangerouslySetInnerHTML={{ __html: podcastData?.description }}></div>
+								</div>
+							}
+					</div>
 				</div>
 				<div className="PodCastDetail-right">
 					{!isEpisodeDetailRoute && <Episodes data={podcastData?.episodes}/>}
