@@ -45,7 +45,7 @@ const HomeScreen = () => {
 				error => {
 					console.log('Error fetching Top popular podcast data', error);
 				}).finally(() => dispatch(hideLoader()))
-	}, []);
+	}, [dispatch]);
 
 	return (
 		<div className="Home">
@@ -60,7 +60,7 @@ const HomeScreen = () => {
 											placeholder="Filter podcast..."/>
 						</div>	
 			</div>
-			<div className="PodcastList">
+			<div id="podcast-list" className="PodcastList">
 				{podcastList && podcastList.map(podcast => {
 				return (
 					<div key={podcast.viewData.id} className="PodcastSmallCard" onClick={() => {handleClick(podcast)}}>

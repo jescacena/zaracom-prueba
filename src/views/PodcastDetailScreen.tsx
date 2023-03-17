@@ -20,7 +20,7 @@ const PodcastDetailScreen = () => {
 
 	const handleClick = useCallback(()=> {
 		navigate(`/podcast/${podcastId}`);
-	},[]);
+	},[navigate, podcastId]);
 
 	useEffect(() => {
 		setIsEpisodeDetailRoute(matches.length > 2);
