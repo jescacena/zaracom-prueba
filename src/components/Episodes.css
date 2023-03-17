@@ -1,0 +1,59 @@
+.EpisodesHeader {
+  margin: 0;
+  padding: 0.7rem 1rem;
+  text-align: left;
+  -webkit-box-shadow: 0px 4px 5px 2px var(--color-lightgrey);
+  -moz-box-shadow: 0px 4px 5px 2px var(--color-lightgrey);
+  box-shadow: 0px 4px 5px 2px var(--color-lightgrey);
+}
+
+.EpisodesList {
+  padding: 1.5rem 1rem;
+  list-style: none;
+  -webkit-box-shadow: 0px 4px 5px 2px var(--color-lightgrey);
+  -moz-box-shadow: 0px 4px 5px 2px var(--color-lightgrey);
+  box-shadow: 0px 4px 5px 2px var(--color-lightgrey);
+}
+
+.EpisodesListHeader {
+  font-size: 0.9rem;
+  font-weight: bold;
+  text-align: left;
+  display: grid;
+  grid-template-columns: 6fr repeat(2, 1fr);
+  grid-column-gap: 20px;
+  grid-row-gap: 40px;
+  border-bottom: 2px solid var(--color-grey);
+  padding: 0.7rem 0.5rem;
+}
+
+.EpisodesListItem {
+  cursor: pointer;
+  font-size: 0.9rem;
+  text-align: left;
+  display: grid;
+  grid-template-columns: 6fr repeat(2, 1fr);
+  grid-column-gap: 20px;
+  grid-row-gap: 40px;
+  border-bottom: 1px solid var(--color-mediumgrey);
+  padding: 0.7rem 0.5rem;
+}
+
+.EpisodesListItem:nth-child(odd) {
+  background-color: #fff;
+}
+.EpisodesListItem:nth-child(even) {
+  background-color: var(--color-lightgrey);
+}
+
+.EpisodesListItemTitle {
+  color: var(--color-primary);
+}
+
+.EpisodesListItemDuration {
+  text-align: center;
+}
+
+.EpisodesListItemDurationHeader {
+  text-align: center;
+}

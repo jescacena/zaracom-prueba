@@ -18,20 +18,23 @@ const Episodes = ({data}: {data:EpisodeType[] | undefined}) => {
 	}, [dispatch, navigate, podcastId]);
 
 	if(!data) {
-		return <div>Loading</div>;
+		return <div></div>;
 	}
 	return (
 		<div className="Episodes">
-				{data && <h3>Episodes: {data.length}</h3>}
-				<ul>
-				{data.map((item,index) => {
-					return (
-						<li key={index} onClick={() => handleClick(item)}>
-							{item.id} - {item.title} - {item.pubDate} - {item.duration}
+				{data && <h3 className="EpisodesHeader">Episodes: {data.length}</h3>}
+				<ul className="EpisodesList">
+						<li className="EpisodesListHeader">
+							<span>Title</span><span>Date</span><span className="EpisodesListItemDuration">Duration</span>
 						</li>
-					);
+					{data.map((item,index) => {
+						return (
+							<li className="EpisodesListItem" key={index} onClick={() => handleClick(item)}>
+								<span className="EpisodesListItemTitle">{item.title}</span><span>{item.pubDate}</span><span className="EpisodesListItemDuration">{item.duration}</span>
+							</li>
+						);
 
-				})}
+					})}
 				</ul>
 		</div>
 	);

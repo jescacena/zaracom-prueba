@@ -1,9 +1,10 @@
 @import-normalize; /* bring in normalize.css styles */
 
 :root {
-  --color-primary: rgb(0, 136, 255);
+  --color-primary: rgb(25, 78, 178);
   --color-grey: #6e6e6e;
-  --color-lightgrey: #dedede;
+  --color-mediumgrey: #d3d3d3;
+  --color-lightgrey: #f0f0f0;
 }
 
 /* rest of app styles */

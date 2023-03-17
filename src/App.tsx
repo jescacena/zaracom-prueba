@@ -3,6 +3,7 @@ import './App.css';
 import { Outlet, useMatches } from "react-router-dom";
 import Header from './components/Header';
 import HomeScreen from './views/HomeScreen';
+import ScrollToTop from './services/scrollToTop';
 
 
 const App = () => {
@@ -17,7 +18,7 @@ const App = () => {
 
   return (
     <div className="App">
-
+			<ScrollToTop />
       <header className="App-header">
 				<Header />
       </header>

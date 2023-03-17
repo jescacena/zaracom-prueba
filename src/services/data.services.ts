@@ -81,9 +81,17 @@ export const fetchPodcastDetail = async (podcastId: string): Promise<PodcastDeta
 
 
 const extractDescriptionFromRss = (rssData: Document): string | null | undefined => {
-	const items = rssData.querySelectorAll("channel");
-	const descriptionNode = items[0].querySelector('description');
-	return descriptionNode?.childNodes[0].nodeValue;
+
+	let result;
+	try {
+		const items = rssData.querySelectorAll("channel");
+		const descriptionNode = items[0].querySelector('description');
+		result = descriptionNode?.childNodes[0].nodeValue;
+
+	} catch (error) {
+		console.log('Error on extract description', error);
+	}
+	return result;
 }
 
 const extractEpisodesFromRss = (rssData: Document): EpisodeType[] => {
@@ -98,13 +106,23 @@ const extractEpisodesFromRss = (rssData: Document): EpisodeType[] => {
 			title: item.querySelector('title') ? item.querySelector('title')?.innerHTML : undefined,
 			description: item.querySelector('description') ? item.querySelector('description')?.textContent : undefined,
 			pubDate: item.querySelector('pubDate') ? formatDateFromRss(item.querySelector('pubDate')?.innerHTML) : undefined,
-			duration: item.getElementsByTagName('itunes:duration')[0]?.innerHTML,
+			duration: formatDuration(item.getElementsByTagName('itunes:duration')[0]?.innerHTML),
 			audioUrl: item.querySelector('enclosure')?.attributes.getNamedItem('url')?.value
 		});
 	});
 
 	return result;
 
+}
+
+const formatDuration = (duration: string) => {
+	if (!duration || duration.length < 4 || duration.indexOf(':') >= 0) {
+		return duration;
+	}
+	const tokens = duration.split('');
+	const minutes = `${tokens[(tokens.length - 4)]}${tokens[(tokens.length - 3)]}`;
+	const seconds = `${tokens[(tokens.length - 2)]}${tokens[(tokens.length - 1)]}`;
+	return `${minutes}:${seconds}`;
 }
 
 const formatDateFromRss = (dateFromRss: string | undefined) => {
