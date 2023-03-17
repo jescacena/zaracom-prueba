@@ -5,7 +5,7 @@ import {Entry} from '../domain/FeedTypes';
 import {fetchTopPodcasts} from '../services/data.services';
 import {hideLoader, showLoader} from '../store/loaderSlice';
 
-import './HomeScreen';
+import './HomeScreen.css';
 
 let initialPodcastList: Entry[] = [];
 
@@ -49,18 +49,24 @@ const HomeScreen = () => {
 
 	return (
 		<div className="Home">
-			<h1>Most popular podcast list</h1>
-			<div className="Filter">
-						<h3>Cuenta {podcastList.length}</h3>
-						<input type="text" value={filter || ''} onChange={handleFilterChange}  placeholder="Filter podcast"/>
-			</div>	
+			<div className="ListHeader">
+						<div className="Filter">
+									<h3 className="Count">{podcastList.length}</h3>
+									<input
+											className="FilterInput"
+											type="text"
+											value={filter || ''}
+											onChange={handleFilterChange}
+											placeholder="Filter podcast..."/>
+						</div>	
+			</div>
 			<div className="PodcastList">
 				{podcastList && podcastList.map(podcast => {
 				return (
 					<div key={podcast.viewData.id} className="PodcastSmallCard" onClick={() => {handleClick(podcast)}}>
-						<img src={podcast.viewData.image} alt="" />
-						<h5>{podcast.viewData.title}</h5>
-						<h5>Author: {podcast.viewData.author}</h5>
+						<img className="image" src={podcast.viewData.image} alt="" />
+						<p className="title">{podcast.viewData.title}</p>
+						<p className="author">Author: {podcast.viewData.author}</p>
 					</div>
 				);
 				})}

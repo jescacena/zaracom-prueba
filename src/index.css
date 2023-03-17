@@ -1,5 +1,11 @@
 @import-normalize; /* bring in normalize.css styles */
 
+:root {
+  --color-primary: rgb(0, 136, 255);
+  --color-grey: #6e6e6e;
+  --color-lightgrey: #dedede;
+}
+
 /* rest of app styles */
 body {
   margin: 0;

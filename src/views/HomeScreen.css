@@ -1,0 +1,72 @@
+.Home {
+  width: 100%;
+}
+
+.ListHeader {
+  display: inline-block;
+  width: 100%;
+}
+
+.Filter {
+  float: right;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.Count {
+  background-color: var(--color-primary);
+  margin-right: 1rem;
+  border-radius: 10px;
+  color: white;
+  padding: 0.2rem 0.5rem;
+}
+
+.FilterInput {
+  height: 2rem;
+  width: 20rem;
+  padding-left: 1rem;
+  color: var(--color-grey);
+  border-radius: 5px;
+  border-color: var(--color-lightgrey);
+}
+
+.PodcastList {
+  margin: 4rem auto 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-column-gap: 1rem;
+  grid-row-gap: 3rem;
+}
+
+.PodcastSmallCard {
+  cursor: pointer;
+  padding: 1rem;
+  margin-bottom: 7rem;
+  position: relative;
+  -webkit-box-shadow: 0px 4px 5px 2px var(--color-lightgrey);
+  -moz-box-shadow: 0px 4px 5px 2px var(--color-lightgrey);
+  box-shadow: 0px 4px 5px 2px var(--color-lightgrey);
+}
+
+.image {
+  border-radius: 100%;
+  position: absolute;
+  top: -5rem;
+  right: 4rem;
+  width: 8rem;
+}
+
+.title {
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 0;
+  margin: 4rem 0 0.5rem 0;
+}
+
+.author {
+  font-size: 0.9rem;
+  margin: 0;
+}

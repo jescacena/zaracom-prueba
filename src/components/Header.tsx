@@ -11,7 +11,7 @@ const Header = () => {
 
 	return (
 			<div className="Header">
-					<h1 onClick={() => navigate("/")}>Podcaster</h1>
+					<h1 className="Logo" onClick={() => navigate("/")}>Podcaster</h1>
 					{loader && <span className="loader"></span>}
 			</div>
 	);
